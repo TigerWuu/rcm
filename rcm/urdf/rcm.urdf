@@ -8,17 +8,17 @@
     name="base_link">
     <inertial>
       <origin
-        xyz="-1.72144234930616E-06 -0.000156964168878601 0.0531360217416827"
+        xyz="-1.7214E-06 -0.00015696 0.053136"
         rpy="0 0 0" />
       <mass
-        value="0.548884585225384" />
+        value="0.54888" />
       <inertia
-        ixx="0.000511577282673926"
-        ixy="1.33340305831271E-09"
-        ixz="-1.45841744290592E-09"
-        iyy="0.000644163901137436"
-        iyz="-1.87300620641781E-09"
-        izz="0.000639190130910955" />
+        ixx="0.00051158"
+        ixy="1.3334E-09"
+        ixz="-1.4584E-09"
+        iyy="0.00064416"
+        iyz="-1.873E-09"
+        izz="0.00063919" />
     </inertial>
     <visual>
       <origin
@@ -31,7 +31,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -174,10 +174,10 @@
         value="0.043996" />
       <inertia
         ixx="1.4695E-05"
-        ixy="1.4246E-19"
-        ixz="-8.0242E-21"
+        ixy="1.4229E-19"
+        ixz="-9.7168E-21"
         iyy="0.00010124"
-        iyz="1.2207E-20"
+        iyz="1.2196E-20"
         izz="8.7267E-05" />
     </inertial>
     <visual>
@@ -226,7 +226,7 @@
     name="Link_ee">
     <inertial>
       <origin
-        xyz="-0.041996 -0.022493 0.00050357"
+        xyz="-0.0019955 -0.022493 0.00050357"
         rpy="0 0 0" />
       <mass
         value="0.092307" />
@@ -266,7 +266,7 @@
     name="Link_ee_joint"
     type="revolute">
     <origin
-      xyz="0.1675 0 0"
+      xyz="0.1675 0.04 0"
       rpy="0 0 -1.5708" />
     <parent
       link="Link3_1" />
@@ -324,7 +324,7 @@
     name="Link_E_joint"
     type="prismatic">
     <origin
-      xyz="-0.0074884 -0.037 0"
+      xyz="0.032512 -0.037 0"
       rpy="1.5708 0 1.5381" />
     <parent
       link="Link_ee" />
@@ -333,8 +333,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-10"
-      upper="10"
+      lower="-0.03"
+      upper="0.04"
       effort="10"
       velocity="10" />
   </joint>
@@ -342,16 +342,16 @@
     name="Link3_2">
     <inertial>
       <origin
-        xyz="0.078951 -1.6653E-16 -1.3878E-17"
+        xyz="0.078951 -2.2204E-16 0"
         rpy="0 0 0" />
       <mass
         value="0.043996" />
       <inertia
         ixx="1.4695E-05"
-        ixy="1.7541E-19"
-        ixz="-6.8612E-21"
+        ixy="1.7597E-19"
+        ixz="-7.3583E-21"
         iyy="0.00010124"
-        iyz="-1.9508E-22"
+        iyz="-2.2739E-22"
         izz="8.7267E-05" />
     </inertial>
     <visual>
@@ -401,64 +401,6 @@
       offset="0" />
   </joint>
   <link
-    name="Link_ee_">
-    <inertial>
-      <origin
-        xyz="-0.0036766 -0.02139 0.00050313"
-        rpy="0 0 0" />
-      <mass
-        value="0.085784" />
-      <inertia
-        ixx="1.7368E-05"
-        ixy="-1.8139E-07"
-        ixz="4.1281E-11"
-        iyy="8.6313E-05"
-        iyz="-3.6849E-12"
-        izz="8.432E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link_ee_.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.67843 0.76471 0.12549 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link_ee_.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Link_ee_joint_"
-    type="revolute">
-    <origin
-      xyz="0.1675 0 0"
-      rpy="0 0 -1.5708" />
-    <parent
-      link="Link3_2" />
-    <child
-      link="Link_ee_" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-10"
-      upper="10"
-      effort="10"
-      velocity="10" />
-  </joint>
-  <link
     name="Link2_2">
     <inertial>
       <origin
@@ -468,10 +410,10 @@
         value="0.039322" />
       <inertia
         ixx="4.29E-06"
-        ixy="-1.4902E-22"
-        ixz="1.0222E-18"
+        ixy="8.939E-24"
+        ixz="1.022E-18"
         iyy="4.6463E-05"
-        iyz="2.4557E-22"
+        iyz="2.6082E-22"
         izz="4.3641E-05" />
     </inertial>
     <visual>
@@ -519,121 +461,5 @@
       joint="Link2_1_joint"
       multiplier="1"
       offset="0" />
-  </joint>
-  <link
-    name="Link3_1_">
-    <inertial>
-      <origin
-        xyz="0.038951 5.5511E-17 1.1102E-16"
-        rpy="0 0 0" />
-      <mass
-        value="0.043996" />
-      <inertia
-        ixx="1.4695E-05"
-        ixy="2.2449E-20"
-        ixz="-7.9908E-21"
-        iyy="0.00010124"
-        iyz="1.4208E-20"
-        izz="8.7267E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link3_1_.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link3_1_.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Link3_1_joint_"
-    type="revolute">
-    <origin
-      xyz="0.072 0 0"
-      rpy="0 0 -1.5708" />
-    <parent
-      link="Link2_2" />
-    <child
-      link="Link3_1_" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-10"
-      upper="10"
-      effort="10"
-      velocity="10" />
-  </joint>
-  <link
-    name="Link3_2_">
-    <inertial>
-      <origin
-        xyz="0.038951 -1.1102E-16 -1.3878E-17"
-        rpy="0 0 0" />
-      <mass
-        value="0.043996" />
-      <inertia
-        ixx="1.4695E-05"
-        ixy="5.5336E-20"
-        ixz="-7.515E-21"
-        iyy="0.00010124"
-        iyz="1.8189E-21"
-        izz="8.7267E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link3_2_.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rcm/meshes/Link3_2_.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Link3_2_joint_"
-    type="revolute">
-    <origin
-      xyz="0.112 0 0"
-      rpy="0 0 -1.5708" />
-    <parent
-      link="Link2_2" />
-    <child
-      link="Link3_2_" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-10"
-      upper="10"
-      effort="10"
-      velocity="10" />
   </joint>
 </robot>
