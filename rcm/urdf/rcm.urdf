@@ -159,10 +159,6 @@
       upper="10"
       effort="10"
       velocity="10" />
-    <mimic
-      joint="Link2_1_joint"
-      multiplier="1"
-      offset="0" />
   </joint>
   <link
     name="Link3_1">
