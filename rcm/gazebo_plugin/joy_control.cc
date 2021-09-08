@@ -7,6 +7,7 @@
 #include "ros/subscribe_options.h"
 #include "std_msgs/Float32.h"
 #include "std_msgs/Float64MultiArray.h"
+#include <string>
 
 #include <functional>
 #include <gazebo/gazebo.hh>
@@ -42,11 +43,18 @@ namespace gazebo
 			this->Link_E_joint = _model->GetJoints()[7];
 
 			// Setup a P-controller, with a gain of 0.1.
-			this->pid = common::PID(1, 0.1, 0.3);
+			this->pid_vel = common::PID(1, 0.1, 0.3);
+			this->pid_pos = common::PID(150, 0.01, 50);
 
 			// Apply the P-controller to the joint.
-			this->model->GetJointController()->SetVelocityPID(this->Link1_joint->GetScopedName(), this->pid);
-			this->model->GetJointController()->SetVelocityPID(this->Link2_1_joint->GetScopedName(), this->pid);
+			SetPID(this->Link1_joint, "vel", this->pid_vel);
+			SetPID(this->Link2_1_joint, "vel", this->pid_vel);
+			SetPID(this->Link1_joint, "pos", this->pid_pos);
+			SetPID(this->Link2_1_joint, "pos", this->pid_pos);
+			SetPID(this->Link_E_joint, "pos", this->pid_pos);
+
+			// this->model->GetJointController()->SetVelocityPID(this->Link1_joint->GetScopedName(), this->pid);
+			// this->model->GetJointController()->SetVelocityPID(this->Link2_1_joint->GetScopedName(), this->pid);
 			// this->model->GetJointController()->SetVelocityPID(this->Link_E_joint->GetScopedName(), this->pid);
 
 			// Initialize ros, if it has not already bee initialized.
@@ -60,36 +68,33 @@ namespace gazebo
 			this->rosNode.reset(new ros::NodeHandle("gazebo_client"));
 
 			// Create a named topic, and subscribe to it.
+			std::string velocity = "/" + this->model->GetName() + "/vel_cmd";
+			std::string position = "/" + this->model->GetName() + "/pos_cmd";
+
 			ros::SubscribeOptions so =
-			ros::SubscribeOptions::create<std_msgs::Float64MultiArray>(
-				"/" + this->model->GetName() + "/vel_cmd",
-				1,
-				boost::bind(&JoyControl::OnRosMsg, this, _1),
-				ros::VoidPtr(), &this->rosQueue);
+			ros::SubscribeOptions::create<std_msgs::Float64MultiArray>(velocity,1,boost::bind(&JoyControl::RosVelMsg, this, _1),ros::VoidPtr(), &this->rosQueue);
+
+			ros::SubscribeOptions so2 =
+			ros::SubscribeOptions::create<std_msgs::Float64MultiArray>(position,1,boost::bind(&JoyControl::RosPosMsg, this, _1),ros::VoidPtr(), &this->rosQueue);
+
 			this->rosSub = this->rosNode->subscribe(so);
+			this->rosSub2 = this->rosNode->subscribe(so2);
 
 			// Spin up the queue helper thread.
 			this->rosQueueThread = std::thread(std::bind(&JoyControl::QueueThread, this));
 
-			// Create the node
-			// this->node = transport::NodePtr(new transport::Node());
-			// #if GAZEBO_MAJOR_VERSION < 8
-			// this->node->Init(this->model->GetWorld()->GetName());
-			// #else
-			// this->node->Init(this->model->GetWorld()->Name());
-			// #endif
-
-			// // Create a topic name
-			// std::string topicName = "~/" + this->model->GetName() + "/vel_cmd";
-      		// std::cout << topicName <<"\n";
-			// // Subscribe to the topic, and register a callback
-			// this->sub = this->node->Subscribe(topicName, &JoyControl::OnMsg, this);
 
 		}
-		void OnRosMsg(const std_msgs::Float64MultiArrayConstPtr &_msg){
+		void RosVelMsg(const std_msgs::Float64MultiArrayConstPtr &_msg){
 			this->SetVelocity(this->Link1_joint, _msg->data[1]);
 			this->SetVelocity(this->Link2_1_joint, _msg->data[2]);
 			this->SetVelocity(this->Link_E_joint, _msg->data[0]);
+		}
+
+		void RosPosMsg(const std_msgs::Float64MultiArrayConstPtr &_msg){
+			this->SetPosition(this->Link1_joint, _msg->data[0]);
+			this->SetPosition(this->Link2_1_joint, _msg->data[1]);
+			this->SetPosition(this->Link_E_joint, _msg->data[2]);
 		}
 
 		/// Set the velocity of the Velodyne
@@ -99,11 +104,19 @@ namespace gazebo
 			this->model->GetJointController()->SetVelocityTarget(joint->GetScopedName(), _vel);
     	}
 
+		void SetPosition(physics::JointPtr joint, const double &_pos){
+			// Set the joint's target position.
+			this->model->GetJointController()->SetPositionTarget(joint->GetScopedName(), _pos);
+    	}
+
+
+
     private: 
 		/// \brief A node use for ROS transport
 		private: std::unique_ptr<ros::NodeHandle> rosNode;
 		/// \brief A ROS subscriber
 		private: ros::Subscriber rosSub;
+		private: ros::Subscriber rosSub2;
 		/// \brief A ROS callbackqueue that helps process messages
 		private: ros::CallbackQueue rosQueue;
 		/// \brief A thread the keeps running the rosQueue
@@ -116,7 +129,8 @@ namespace gazebo
 		physics::JointPtr Link2_1_joint;
 		physics::JointPtr Link_E_joint;
     	/// \brief A PID controller for the joint.
-    	common::PID pid;
+    	common::PID pid_vel;
+		common::PID pid_pos;
 
 		/// \brief ROS helper function that processes messages
 		void QueueThread(){
@@ -126,19 +140,14 @@ namespace gazebo
 			}
 		}
 
-		// /// \brief A node used for transport
-		// transport::NodePtr node;
-		// /// \brief A subscriber to a named topic.
-		// transport::SubscriberPtr sub;
-
-
-		/// \brief Handle incoming message
-		/// \param[in] _msg Repurpose a vector3 message. This function will
-		/// only use the x component.
-		// void OnMsg(ConstVector3dPtr &_msg){
-		// 	this->SetVelocity(_msg->x());
-		// }
-
+		void SetPID(physics::JointPtr joint, std::string name, common::PID pid){
+			if (name == "vel"){
+				this->model->GetJointController()->SetVelocityPID(joint->GetScopedName(), pid);
+			}
+			else if(name == "pos"){
+				this->model->GetJointController()->SetPositionPID(joint->GetScopedName(), pid);
+			}
+		}
   };
 
   // Register this plugin with the simulator

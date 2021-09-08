@@ -191,7 +191,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -283,7 +283,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link2_1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -382,7 +382,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link2_2_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -474,7 +474,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link3_1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -566,7 +566,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link3_2_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -658,7 +658,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link_E_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -750,7 +750,7 @@
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <kinematic>1</kinematic>
         <gravity>1</gravity>
         <visual name='Link_ee_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -831,21 +831,17 @@
          <update_rate>30</update_rate>
          <visualize>true</visualize>
          <camera>
-           <horizontal_fov>1.046</horizontal_fov>
+           <horizontal_fov>1.047</horizontal_fov>
            <image>
              <width>1280</width>
              <height>720</height>
            </image>
            <clip>
-             <near>0.0001</near>
+             <near>0.1</near>
              <far>100</far>
            </clip>
            <depth_camera>
-	        <output>1</output>
-            <!--clip>
-             <near>0.0001</near>
-             <far>100</far>
-            </clip-->
+	     <output>1</output>
            </depth_camera>
          </camera>
          <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
@@ -859,8 +855,8 @@
            <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
            <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
            <frameName>camera_link</frameName>
-           <pointCloudCutoff>0.01</pointCloudCutoff>
-           <pointCloudCutoffMax>100</pointCloudCutoffMax>
+           <pointCloudCutoff>0.5</pointCloudCutoff>
+           <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
            <distortionK1>0</distortionK1>
            <distortionK2>0</distortionK2>
            <distortionK3>0</distortionK3>
@@ -1207,7 +1203,7 @@
       <static>0</static>
       <allow_auto_disable>0</allow_auto_disable>
       <plugin name='joy_control' filename='libjoy_control.so'/>
-      <pose frame=''>0 0 0 0 -0 0</pose>
+      <pose frame=''>-0.00517 0.008995 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
       <sim_time>125 33000000</sim_time>
