@@ -1,0 +1,13 @@
+material Target/Image
+    {
+      technique
+      {
+        pass
+        {
+          texture_unit
+          {
+            texture graph_paper4.jpg            
+          }
+        }
+      }
+    }
