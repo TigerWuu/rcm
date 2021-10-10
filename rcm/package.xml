@@ -15,7 +15,10 @@ for rcm robot</p>
   <depend>rviz</depend>
   <depend>joint_state_publisher_gui</depend>
   <depend>gazebo</depend>
+  <exec_depend>gazebo_ros</exec_depend>
   <export>
     <architecture_independent />
+    <gazebo_ros gazebo_model_path="${prefix}"/>
+    <gazebo_ros plugin_path="${prefix}/gazebo_plugin/build"/>
   </export>
 </package>

@@ -17,7 +17,6 @@
     <model name='ground_plane'>
       <static>1</static>
       <link name='link'>
-      <!--
         <collision name='collision'>
           <geometry>
             <plane>
@@ -26,6 +25,10 @@
             </plane>
           </geometry>
           <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode/>
+            </contact>
             <friction>
               <ode>
                 <mu>100</mu>
@@ -35,14 +38,10 @@
                 <ode/>
               </torsional>
             </friction>
-            <contact>
-              <ode/>
-            </contact>
             <bounce/>
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        -->
         <visual name='visual'>
           <cast_shadows>0</cast_shadows>
           <geometry>
@@ -58,7 +57,7 @@
             </script>
           </material>
         </visual>
-        <self_collide>1</self_collide>
+        <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
@@ -87,44 +86,30 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-
-    <!--swab_model-->
-    <model name='swab_sw2urdf'>
-
-
-    <joint name='fix_to_world_joint' type='fixed'>
-     <parent>world</parent>
-     <child>base_link</child>
-     <pose>0 0 0 0 0 0</pose>
-      <axis>
-        <xyz>0 0 1</xyz>
-      </axis>
-    </joint>
-
-
+    <model name='rcm_1_5'>
       <link name='base_link'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>-2e-06 -0.000157 0.053136 0 -0 0</pose>
+          <mass>0.54888</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>0.00051158</ixx>
+            <ixy>1.3334e-09</ixy>
+            <ixz>-1.4584e-09</ixz>
+            <iyy>0.00064416</iyy>
+            <iyz>-1.873e-09</iyz>
+            <izz>0.00063919</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <visual name='base_link_fixed_joint_lump__base_link_visual'>
+        <kinematic>1</kinematic>
+        <visual name='base_link_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/base_link.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/base_link.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
@@ -133,83 +118,13 @@
             <emissive>0 0 0 1</emissive>
           </material>
         </visual>
-        <visual name='base_link_fixed_joint_lump__linkmask_visual_1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/linkmask.STL</uri>
-            </mesh>
-          </geometry>
-          <transparency>0.7</transparency>
-          <cast_shadows>1</cast_shadows>
-          <material>
-            <emissive>0 0 0 1</emissive>
-          </material>
-        </visual>
-        <collision name='base_link_fixed_joint_lump__base_link_collision'>
+        <collision name='base_link_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/base_link.STL</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
-                <slip1>0</slip1>
-                <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <coefficient>1</coefficient>
-                <patch_radius>0</patch_radius>
-                <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
-                <ode>
-                  <slip>0</slip>
-                </ode>
-              </torsional>
-            </friction>
-            <bounce>
-              <restitution_coefficient>0</restitution_coefficient>
-              <threshold>1e+06</threshold>
-            </bounce>
-            <contact>
-              <collide_without_contact>0</collide_without_contact>
-              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>1</collide_bitmask>
-              <ode>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-                <max_vel>0.01</max_vel>
-                <min_depth>0</min_depth>
-              </ode>
-              <bullet>
-                <split_impulse>1</split_impulse>
-                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-              </bullet>
-            </contact>
-          </surface>
-        </collision>
-        <collision name='base_link_fixed_joint_lump__linkmask_collision_1'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/linkmask.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/base_link.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -260,129 +175,48 @@
           </surface>
         </collision>
       </link>
-      <link name='link0'>
-        <pose frame=''>0 0 0.046 0 -0 0</pose>
+      <link name='Link1'>
+        <pose frame=''>0 0 0.098695 0 -0 0</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>-1e-06 0.017456 0.033231 0 -0 0</pose>
+          <mass>0.34082</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>0.00024163</ixx>
+            <ixy>-0</ixy>
+            <ixz>-0</ixz>
+            <iyy>0.00025274</iyy>
+            <iyz>2.92e-06</iyz>
+            <izz>0.00025121</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
-        <visual name='link0_visual'>
+        <gravity>1</gravity>
+        <visual name='Link1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link0.STL</uri>
-            </mesh>
-          </geometry>
-          <transparency>0</transparency>
-          <cast_shadows>1</cast_shadows>
-        </visual>
-        <collision name='link0_collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link0.STL</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
-                <slip1>0</slip1>
-                <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <coefficient>1</coefficient>
-                <patch_radius>0</patch_radius>
-                <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
-                <ode>
-                  <slip>0</slip>
-                </ode>
-              </torsional>
-            </friction>
-            <bounce>
-              <restitution_coefficient>0</restitution_coefficient>
-              <threshold>1e+06</threshold>
-            </bounce>
-            <contact>
-              <collide_without_contact>0</collide_without_contact>
-              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>1</collide_bitmask>
-              <ode>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-                <max_vel>0.01</max_vel>
-                <min_depth>0</min_depth>
-              </ode>
-              <bullet>
-                <split_impulse>1</split_impulse>
-                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-              </bullet>
-            </contact>
-          </surface>
-        </collision>
-      </link>
-      <link name='link1'>
-        <pose frame=''>-0.112 -1e-06 0.2711 1.5708 -0 0</pose>
-        <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
-          <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
-          </inertia>
-        </inertial>
-        <self_collide>1</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <visual name='link1_visual'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link1.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link1.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
           <material>
             <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
           </material>
         </visual>
-        <collision name='link1_collision'>
+        <collision name='Link1_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link1.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link1.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -433,44 +267,55 @@
           </surface>
         </collision>
       </link>
-      <link name='link2'>
-        <pose frame=''>-0.112 0 0.1036 1.5708 -0 0</pose>
+      <link name='Link2_1'>
+        <pose frame=''>0 0 0.154249 -1.5708 0 0</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>0.055013 0 0.000347 0 -0 0</pose>
+          <mass>0.0214</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>0</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0</iyy>
+            <iyz>0</iyz>
+            <izz>0</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
-        <visual name='link2_visual'>
+        <gravity>1</gravity>
+        <visual name='Link2_1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link2.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link2_1.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
           <material>
             <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+            <script>
+              <name>ModelPreview_1::Link2_1::Link2_1_visual_MATERIAL_</name>
+              <uri>__default__</uri>
+            </script>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0 0 0 1</specular>
           </material>
         </visual>
-        <collision name='link2_collision'>
+        <collision name='Link2_1_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link2.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link2_1.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -521,44 +366,48 @@
           </surface>
         </collision>
       </link>
-      <link name='link3'>
-        <pose frame=''>-0.072 0 0.1036 1.5708 -0 0</pose>
+      <link name='Link2_2'>
+        <pose frame=''>0 0 0.194249 -1.5708 0 0</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>0.061889 0 -0.0001 0 -0 0</pose>
+          <mass>0.0214</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>4.29e-06</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>4.646e-05</iyy>
+            <iyz>0</iyz>
+            <izz>4.364e-05</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
-        <visual name='link3_visual'>
+        <gravity>1</gravity>
+        <visual name='Link2_2_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link3.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link2_2.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
           <material>
             <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
           </material>
         </visual>
-        <collision name='link3_collision'>
+        <collision name='Link2_2_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link3.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link2_2.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -609,44 +458,48 @@
           </surface>
         </collision>
       </link>
-      <link name='link4'>
-        <pose frame=''>0 0 0.1436 1.5708 -0 0</pose>
+      <link name='Link3_1'>
+        <pose frame=''>0.072 0 0.154249 2.31621 -1.57079 2.39617</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>0.078951 0 0 0 -0 0</pose>
+          <mass>0.02395</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>1.47e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00010124</iyy>
+            <iyz>0</iyz>
+            <izz>8.727e-05</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
-        <visual name='link4_visual'>
+        <gravity>1</gravity>
+        <visual name='Link3_1_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link4.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link3_1.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
           <material>
             <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
           </material>
         </visual>
-        <collision name='link4_collision'>
+        <collision name='Link3_1_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link4.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link3_1.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -697,129 +550,48 @@
           </surface>
         </collision>
       </link>
-      <link name='link5'>
-        <pose frame=''>0 0 0.1036 1.5708 -0 0</pose>
+      <link name='Link3_2'>
+        <pose frame=''>0.112 0 0.154249 2.31621 -1.57079 2.39617</pose>
         <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
+          <pose frame=''>0.078951 0 0 0 -0 0</pose>
+          <mass>0.02395</mass>
           <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
+            <ixx>1.47e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00010124</iyy>
+            <iyz>0</iyz>
+            <izz>8.727e-05</izz>
           </inertia>
         </inertial>
         <self_collide>1</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
-        <visual name='link5_visual'>
+        <gravity>1</gravity>
+        <visual name='Link3_2_visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/link5.STL</uri>
-            </mesh>
-          </geometry>
-          <transparency>0</transparency>
-          <cast_shadows>1</cast_shadows>
-        </visual>
-        <collision name='link5_collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/link5.STL</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
-                <slip1>0</slip1>
-                <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <coefficient>1</coefficient>
-                <patch_radius>0</patch_radius>
-                <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
-                <ode>
-                  <slip>0</slip>
-                </ode>
-              </torsional>
-            </friction>
-            <bounce>
-              <restitution_coefficient>0</restitution_coefficient>
-              <threshold>1e+06</threshold>
-            </bounce>
-            <contact>
-              <collide_without_contact>0</collide_without_contact>
-              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>1</collide_bitmask>
-              <ode>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-                <max_vel>0.01</max_vel>
-                <min_depth>0</min_depth>
-              </ode>
-              <bullet>
-                <split_impulse>1</split_impulse>
-                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-              </bullet>
-            </contact>
-          </surface>
-        </collision>
-      </link>
-      <link name='linktip'>
-        <pose frame=''>-0.1346 0 0.2341 1.5708 -4e-06 1.5708</pose>
-        <inertial>
-          <pose frame=''>-0.00284 -0.025386 -0.10484 0 -0 0</pose>
-          <mass>0.01</mass>
-          <inertia>
-            <ixx>0.00044296</ixx>
-            <ixy>-4.718e-06</ixy>
-            <ixz>5.3136e-07</ixz>
-            <iyy>0.00018299</iyy>
-            <iyz>1.342e-06</iyz>
-            <izz>0.000358</izz>
-          </inertia>
-        </inertial>
-        <self_collide>1</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <visual name='linktip_visual'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>1 1 1</scale>
-              <uri>model://swab_sw2urdf/meshes/linktip.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link3_2.STL</uri>
             </mesh>
           </geometry>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
           <material>
             <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
           </material>
         </visual>
-        <collision name='linktip_collision'>
+        <collision name='Link3_2_collision'>
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/tiger/.gazebo/models/swab_sw2urdf/meshes/linktip.STL</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link3_2.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -870,214 +642,244 @@
           </surface>
         </collision>
       </link>
-      <joint name='joint_04' type='revolute'>
-        <parent>link0</parent>
-        <child>link4</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_05' type='revolute'>
-        <parent>link0</parent>
-        <child>link5</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_1t' type='prismatic'>
-        <parent>link1</parent>
-        <child>linktip</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>0</lower>
-            <upper>0.08</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_21' type='revolute'>
-        <parent>link2</parent>
-        <child>link1</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_52' type='revolute'>
-        <parent>link5</parent>
-        <child>link2</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_53' type='revolute'>
-        <parent>link5</parent>
-        <child>link3</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <use_parent_model_frame>0</use_parent_model_frame>
-          <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-            <damping>0</damping>
-            <friction>0</friction>
-          </dynamics>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-      <joint name='joint_b0' type='revolute'>
+      <link name='Link_E'>
+        <pose frame=''>0.127 0 0.284749 -3.14148 -1.53809 3.14148</pose>
+        <inertial>
+          <pose frame=''>0.028599 0.000461 0.00729 0 -0 0</pose>
+          <mass>0.047866</mass>
+          <inertia>
+            <ixx>2.08e-06</ixx>
+            <ixy>1e-08</ixy>
+            <ixz>0</ixz>
+            <iyy>2.79e-06</iyy>
+            <iyz>1e-08</iyz>
+            <izz>1.87e-06</izz>
+          </inertia>
+        </inertial>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='Link_E_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link_E.STL</uri>
+            </mesh>
+          </geometry>
+          <transparency>0</transparency>
+          <cast_shadows>1</cast_shadows>
+          <material>
+            <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+          </material>
+        </visual>
+        <collision name='Link_E_collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link_E.STL</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+      </link>
+      <link name='Link_ee'>
+        <pose frame=''>0.111999 1e-06 0.321749 1.5708 7e-06 -3.14159</pose>
+        <inertial>
+          <pose frame=''>-0.001995 -0.022493 0.000504 0 -0 0</pose>
+          <mass>0.276133</mass>
+          <inertia>
+            <ixx>1.741e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>9.606e-05</iyy>
+            <iyz>0</iyz>
+            <izz>9.407e-05</izz>
+          </inertia>
+        </inertial>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='Link_ee_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link_ee.STL</uri>
+            </mesh>
+          </geometry>
+          <transparency>0</transparency>
+          <cast_shadows>1</cast_shadows>
+          <material>
+            <emissive>0 0 0 1</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+          </material>
+        </visual>
+        <collision name='Link_ee_collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/meshes/Link_ee.STL</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <sensor name='camera' type='depth'>
+          <pose frame=''>0.083 0.016 0 -1.57 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+          <camera name='__default__'>
+            <horizontal_fov>2.32</horizontal_fov>
+            <image>
+              <width>1280</width>
+              <height>720</height>
+            </image>
+            <clip>
+              <near>0.01</near>
+              <far>100</far>
+            </clip>
+            <depth_camera>
+              <output>1</output>
+            </depth_camera>
+          </camera>
+          <plugin name='camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
+            <baseline>0.2</baseline>
+            <alwaysOn>1</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera_ir</cameraName>
+            <imageTopicName>/camera/color/image_raw</imageTopicName>
+            <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
+            <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
+            <frameName>camera_link</frameName>
+            <pointCloudCutoff>0.01</pointCloudCutoff>
+            <pointCloudCutoffMax>100</pointCloudCutoffMax>
+            <distortionK1>0</distortionK1>
+            <distortionK2>0</distortionK2>
+            <distortionK3>0</distortionK3>
+            <distortionT1>0</distortionT1>
+            <distortionT2>0</distortionT2>
+            <CxPrime>0</CxPrime>
+            <Cx>0</Cx>
+            <Cy>0</Cy>
+            <focalLength>0</focalLength>
+            <hackBaseline>0</hackBaseline>
+          </plugin>
+        </sensor>
+      </link>
+      <joint name='Link1_joint' type='revolute'>
         <parent>base_link</parent>
-        <child>link0</child>
+        <child>Link1</child>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <axis>
           <xyz>0 0 1</xyz>
           <use_parent_model_frame>0</use_parent_model_frame>
           <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
+            <lower>-3.14</lower>
+            <upper>3.14</upper>
             <effort>10</effort>
             <velocity>10</velocity>
           </limit>
@@ -1101,16 +903,148 @@
           </ode>
         </physics>
       </joint>
-      <joint name='joint_31' type='revolute'>
-        <parent>link3</parent>
-        <child>link1</child>
+      <joint name='Link2_1_joint' type='revolute'>
+        <parent>Link1</parent>
+        <child>Link2_1</child>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-0.43</lower>
+            <upper>0.43</upper>
+            <effort>10</effort>
+            <velocity>10</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link2_2_joint' type='revolute'>
+        <parent>Link1</parent>
+        <child>Link2_2</child>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-10</lower>
+            <upper>10</upper>
+            <effort>10</effort>
+            <velocity>10</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link3_1_joint1' type='revolute'>
+        <parent>Link2_1</parent>
+        <child>Link3_1</child>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-10</lower>
+            <upper>10</upper>
+            <effort>10</effort>
+            <velocity>10</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link3_1_joint2' type='revolute'>
+        <parent>Link2_2</parent>
+        <child>Link3_1</child>
         <pose frame=''>0.04 0 0 0 -0 0</pose>
         <axis>
           <xyz>0 0 1</xyz>
           <use_parent_model_frame>0</use_parent_model_frame>
           <limit>
-            <lower>3.14</lower>
-            <upper>-3.14</upper>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+            <effort>-1</effort>
+            <velocity>-1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link3_2_joint1' type='revolute'>
+        <parent>Link2_1</parent>
+        <child>Link3_2</child>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-10</lower>
+            <upper>10</upper>
             <effort>10</effort>
             <velocity>10</velocity>
           </limit>
@@ -1134,16 +1068,49 @@
           </ode>
         </physics>
       </joint>
-      <joint name='joint_43' type='revolute'>
-        <parent>link4</parent>
-        <child>link3</child>
-        <pose frame=''>0 0.04 0 0 -0.04 0</pose>
+      <joint name='Link3_2_joint2' type='revolute'>
+        <parent>Link2_2</parent>
+        <child>Link3_2</child>
+        <pose frame=''>0.04 0 0 0 -0 0</pose>
         <axis>
           <xyz>0 0 1</xyz>
           <use_parent_model_frame>0</use_parent_model_frame>
           <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+            <effort>-1</effort>
+            <velocity>-1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link_E_joint' type='prismatic'>
+        <parent>Link_ee</parent>
+        <child>Link_E</child>
+        <pose frame=''>0 0 0 0 -0 1.57</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>0</lower>
+            <upper>0.1</upper>
             <effort>10</effort>
             <velocity>10</velocity>
           </limit>
@@ -1167,18 +1134,51 @@
           </ode>
         </physics>
       </joint>
-      <joint name='joint_42' type='revolute'>
-        <parent>link4</parent>
-        <child>link2</child>
-        <pose frame=''>0 0.04 0 0 -0 0</pose>
+      <joint name='Link_ee_joint1' type='revolute'>
+        <parent>Link3_1</parent>
+        <child>Link_ee</child>
+        <pose frame=''>0.04 0 0 0 -0 0</pose>
         <axis>
           <xyz>0 0 1</xyz>
           <use_parent_model_frame>0</use_parent_model_frame>
           <limit>
-            <lower>-3.141</lower>
-            <upper>3.141</upper>
-            <effort>10</effort>
-            <velocity>10</velocity>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+            <effort>-1</effort>
+            <velocity>-1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+      <joint name='Link_ee_joint2' type='revolute'>
+        <parent>Link3_2</parent>
+        <child>Link_ee</child>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+            <effort>-1</effort>
+            <velocity>-1</velocity>
           </limit>
           <dynamics>
             <spring_reference>0</spring_reference>
@@ -1201,16 +1201,15 @@
         </physics>
       </joint>
       <static>0</static>
-      <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>0.007021 -0.000238 0 0 -0 0</pose>
-
-     <plugin name="joy_control" filename="libjoy_control.so"/>
+      <allow_auto_disable>0</allow_auto_disable>
+      <plugin name='joy_control' filename='libjoy_control.so'/>
+      <pose frame=''>0 0 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>0 0</sim_time>
-      <real_time>0 0</real_time>
-      <wall_time>1629272194 326272466</wall_time>
-      <iterations>0</iterations>
+      <sim_time>192 452000000</sim_time>
+      <real_time>70 54413536</real_time>
+      <wall_time>1632066864 398461275</wall_time>
+      <iterations>67419</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -1221,59 +1220,67 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='swab_sw2urdf'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+      <model name='rcm_1_5'>
+        <pose frame=''>-0.00517 0.008995 0 0 -0 0</pose>
         <scale>1 1 1</scale>
+        <link name='Link1'>
+          <pose frame=''>-0.005168 0.008994 0.098695 -6e-06 -1.4e-05 0.03379</pose>
+          <velocity>7e-06 1e-06 -0 1.3e-05 -5.2e-05 0.000462</velocity>
+          <acceleration>0.018949 -0.000517 0.0002 0.022533 -0.191353 0.086873</acceleration>
+          <wrench>0.006458 -0.000176 6.8e-05 0 -0 0</wrench>
+        </link>
+        <link name='Link2_1'>
+          <pose frame=''>-0.005169 0.008994 0.15425 -1.57078 0.430039 0.033797</pose>
+          <velocity>7e-06 -0 2e-06 2e-06 8e-06 0.00044</velocity>
+          <acceleration>0.024598 -0.000961 0.002747 0 -0 0</acceleration>
+          <wrench>0.000526 -2.1e-05 5.9e-05 0 -0 0</wrench>
+        </link>
+        <link name='Link2_2'>
+          <pose frame=''>-0.005166 0.008993 0.194249 -1.57078 0.430044 0.0338</pose>
+          <velocity>2.6e-05 1e-06 -1e-06 2.9e-05 4.5e-05 0.000445</velocity>
+          <acceleration>0.098744 0.003402 -0.002117 0.030326 0.017436 0.006544</acceleration>
+          <wrench>0.002113 7.3e-05 -4.5e-05 0 -0 0</wrench>
+        </link>
+        <link name='Link3_1'>
+          <pose frame=''>0.060238 0.011206 0.124232 -1.31931 -1.57076 -0.217709</pose>
+          <velocity>4e-06 3e-05 0 -2.8e-05 0.00099 0.000434</velocity>
+          <acceleration>0.321848 0.010675 0.001964 3.10329 -1.32399 3.03761</acceleration>
+          <wrench>0.007708 0.000256 4.7e-05 0 -0 0</wrench>
+        </link>
+        <link name='Link3_2'>
+          <pose frame=''>0.096577 0.012434 0.107555 -1.10499 -1.57077 -0.432023</pose>
+          <velocity>-2.4e-05 4.6e-05 2e-06 -3.3e-05 0.001115 0.00045</velocity>
+          <acceleration>0.262459 0.011525 0.02112 -0.044564 -1.12383 0.200164</acceleration>
+          <wrench>0.006286 0.000276 0.000506 0 -0 0</wrench>
+        </link>
+        <link name='Link_E'>
+          <pose frame=''>0.094791 0.012372 0.235168 2.6e-05 -1.17339 0.033769</pose>
+          <velocity>-0.000643 2.4e-05 0.000318 -4e-05 0.000697 0.000456</velocity>
+          <acceleration>-4.03657 -0.133229 1.9599 3.07694 1.49187 -3.11996</acceleration>
+          <wrench>-0.193214 -0.006377 0.093813 0 -0 0</wrench>
+        </link>
+        <link name='Link_ee'>
+          <pose frame=''>0.09658 0.012433 0.275054 1.57078 -0.430099 -3.10779</pose>
+          <velocity>0.000168 5.3e-05 -1.4e-05 -1.9e-05 0.000441 0.000451</velocity>
+          <acceleration>0.665354 0.025239 -0.012817 0.017942 0.639427 0.010765</acceleration>
+          <wrench>0.183726 0.006969 -0.003539 0 -0 0</wrench>
+        </link>
         <link name='base_link'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
+          <pose frame=''>-0.00517 0.008995 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
+          <acceleration>0 0 -17.8545 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
-        <link name='link0'>
-          <pose frame=''>0.007021 -0.000238 0.046 0 -0 0</pose>
+      </model>
+      <model name='target'>
+        <pose frame=''>-0.57 0 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>-0.57 0 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
-        <link name='link1'>
-          <pose frame=''>-0.104979 -0.000239 0.2711 1.5708 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link2'>
-          <pose frame=''>-0.104979 -0.000238 0.1036 1.5708 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link3'>
-          <pose frame=''>-0.064979 -0.000238 0.1036 1.5708 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link4'>
-          <pose frame=''>0.007021 -0.000238 0.1436 1.5708 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link5'>
-          <pose frame=''>0.007021 -0.000238 0.1036 1.5708 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='linktip'>
-          <pose frame=''>-0.127579 -0.000238 0.2341 1.5708 -4e-06 1.5708</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-
-	<plugin name="joy_control" filename="libjoy_control.so"/>
       </model>
       <light name='sun'>
         <pose frame=''>0 0 10 0 -0 0</pose>
@@ -1281,10 +1288,109 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-0.598088 -0.642563 0.514247 0 0.535643 0.628194</pose>
+        <pose frame=''>-0.04971 -1.42168 0.627046 0 0.383643 1.48819</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
+    <model name='target'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>1</kinematic>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Target/Image</name>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/materials/scripts</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/materials/textures</uri>
+            </script>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+          </material>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <transparency>0</transparency>
+          <cast_shadows>1</cast_shadows>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+      </link>
+      <static>0</static>
+      <allow_auto_disable>1</allow_auto_disable>
+      <pose frame=''>-0.569772 0.135541 0 0 -0 0</pose>
+    </model>
   </world>
 </sdf>

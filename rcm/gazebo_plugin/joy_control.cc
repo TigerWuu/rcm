@@ -8,6 +8,7 @@
 #include "std_msgs/Float32.h"
 #include "std_msgs/Float64MultiArray.h"
 #include <string>
+#include <unistd.h>
 
 #include <functional>
 #include <gazebo/gazebo.hh>
@@ -92,8 +93,11 @@ namespace gazebo
 		}
 
 		void RosPosMsg(const std_msgs::Float64MultiArrayConstPtr &_msg){
+			this->model->GetJointController()->SetPositionTarget(this->Link_E_joint->GetScopedName(), 0.0);
+			sleep(1);
 			this->SetPosition(this->Link1_joint, _msg->data[0]);
 			this->SetPosition(this->Link2_1_joint, _msg->data[1]);
+			sleep(1);
 			this->SetPosition(this->Link_E_joint, _msg->data[2]);
 		}
 

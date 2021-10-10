@@ -28,7 +28,8 @@
         <material>
           <script>
             <name>Target/Image</name>
-            <uri>~/RCM_ws/src/rcm/rcm/materials/scripts/target.material</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/materials/scripts</uri>
+              <uri>/home/tiger/RCM_ws/src/rcm/rcm/materials/textures</uri>
           </script>
           <shader type='vertex'>
             <normal_map>__default__</normal_map>
